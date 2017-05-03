@@ -24,17 +24,30 @@ def mirror_string(the_string):
 
 
 # Chapter 10 assignment
-def sum_evens(the_list):
+def sum_evens(the_nums):
     """ define a function called sum_evens, which receives one argument, a list of numbers.
         your function should return the sum of all the even numbers in the list """
     my_sum = 0
-    for num in the_list:
+    for num in the_nums:
         if num % 2 == 0:
             my_sum += num
     return my_sum
 
 
 # Chapter 11 assignment
+def sum_of_initial_odds(the_nums):
+    """ sum up all the elements in a list up to but not including the first even number """
+    my_sum = 0
+    for num in the_nums:
+        if num % 2 == 0:
+            # as soon as even number found, we're done
+            return my_sum
+        else:
+            # add odd number to accumulator
+            my_sum += num
+    # reached end of list (no even numbers in the_nums)
+    return my_sum
+
 
 def main():
     """ tests for chapter assignments"""
