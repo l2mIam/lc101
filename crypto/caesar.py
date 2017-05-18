@@ -5,6 +5,7 @@ Caesar
 __author__ = "Loren Milliman"
 __date__ = "5/8/2017"
 
+import unittest
 
 def alphabet_position(letter):
     """ takes a letter and returns the numeric value (a/A = 0 to z/Z = 25)
@@ -48,43 +49,49 @@ def rotate_character(char, rot):
         return char
     return position_to_char((alphabet_position(char) + rot) % 26, is_upper(char))
 
+class TestCaesar(unittest.TestCase):
+    """ tests for caesar methods """
+    def test_alphabet_position(self):
+        """ test alpha_position """
+        self.assertEqual(alphabet_position('a'), 0)
+        self.assertEqual(alphabet_position('A'), 0)
+        self.assertEqual(alphabet_position('z'), 25)
+        self.assertEqual(alphabet_position('Z'), 25)
+        self.assertEqual(alphabet_position('d'), 3)
+        self.assertEqual(alphabet_position('G'), 6)
+
+    def test_position_to_char(self):
+        """ test position_to_char """
+        self.assertEqual(position_to_char(0, False), 'a')
+        self.assertEqual(position_to_char(25, False), 'z')
+        self.assertEqual(position_to_char(4, True), 'E')
+
+    def test_is_upper(self):
+        """ test is_upper """
+        self.assertTrue(is_upper('A'))
+        self.assertTrue(is_upper('Z'))
+        self.assertFalse(is_upper('a'))
+        self.assertFalse(is_upper('z'))
+
+    def test_is_alpha(self):
+        """ test is_alpha """
+        self.assertTrue(is_alpha('a'))
+        self.assertTrue(is_alpha('z'))
+        self.assertTrue(is_alpha('A'))
+        self.assertFalse(is_alpha('!'))
+        self.assertFalse(is_alpha('~'))
+
+    def test_rotate_character(self):
+        """ test rotate_character """
+        self.assertEqual(rotate_character('A', -5), 'V')
+        self.assertEqual(rotate_character('z', 3), 'c')
+        self.assertEqual(rotate_character('Y', 28), 'A')
+        self.assertEqual(rotate_character('#', 22), '#')
+        self.assertEqual(rotate_character('%', -4), '%')
+
 def main():
-    """ Just some tests
-    """
-    # Tests for alphabet_position
-    assert alphabet_position('a') == 0
-    assert alphabet_position('A') == 0
-    assert alphabet_position('z') == 25
-    assert alphabet_position('Z') == 25
-    assert alphabet_position('d') == 3
-    assert alphabet_position('G') == 6
-
-    # Tests for position_to_char
-    assert position_to_char(0, False) == 'a'
-    assert position_to_char(25, False) == 'z'
-    assert position_to_char(4, True) == 'E'
-
-    # Tests for is_upper
-    assert is_upper('A')
-    assert is_upper('Z')
-    assert not is_upper('a')
-    assert not is_upper('z')
-
-    # Tests for is_alpha
-    assert is_alpha('a')
-    assert is_alpha('z')
-    assert is_alpha('A')
-    assert not is_alpha('!')
-    assert not is_alpha('~')
-
-    # Tests for rotate_character
-    assert rotate_character('A', -5) == 'V'
-    assert rotate_character('z', 3) == 'c'
-    assert rotate_character('Y', 28) == 'A'
-    assert rotate_character('#', 22) == '#'
-    assert rotate_character('%', -4) == '%'
-
+    """ nothing to see here """
     return None
 
 if __name__ == '__main__':
-    main()
+    unittest.main()
