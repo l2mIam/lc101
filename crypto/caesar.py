@@ -9,7 +9,7 @@ import unittest
 
 def alphabet_position(letter):
     """ takes a letter and returns the numeric value (a/A = 0 to z/Z = 25)
-    PARAM1: letter (string): A single char [a,z] or [A,Z]
+    PARAM1: letter (str): A single char [a,z] or [A,Z]
     RETURN: (int): [0,25]
     """
     return (ord(letter) - 1) % 32
@@ -18,21 +18,21 @@ def position_to_char(number, upper):
     """ takes a position [0,25] and returns character [a,z] or [A,Z]
     PARAM1: number (int): a single integer [0,25]
     PARAM2: upper (bool): True if upper case
-    RETURN: (string): a single character [a,z], if upper: [A,Z]
+    RETURN: (str): a single character [a,z], if upper: [A,Z]
     """
     mod = 65 if upper else 97
     return chr(number + mod)
 
 def is_upper(char):
     """ takes a single character and returns true if uppercase
-    PARAM1: char (string): a single charager [a,z] or [A,Z]
+    PARAM1: char (str): a single charager [a,z] or [A,Z]
     RETURN: (bool): true if char [A,Z]
     """
     return ord(char) < 97
 
 def is_alpha(char):
     """ takes a single character and returns true if char is [a,z] or [A,Z]
-    PARAM1: char (string): a single character
+    PARAM1: char (str): a single character
     RETURN: (bool):  True of char [a,z] or [A,Z]
     """
     val = ord(char)
@@ -48,6 +48,17 @@ def rotate_character(char, rot):
     if not is_alpha(char):
         return char
     return position_to_char((alphabet_position(char) + rot) % 26, is_upper(char))
+
+def encrypt(word, rot):
+    """ takes a string and shifts each char by rot
+    PARAM1: word (str): A string
+    PARAM2: rot (int): How far to rotate
+    RETURN: (str): The string rotated
+    """
+    rot_word = ""
+    for char in word:
+        rot_word += rotate_character(char, rot)
+    return rot_word
 
 class TestCaesar(unittest.TestCase):
     """ tests for caesar methods """
@@ -88,6 +99,13 @@ class TestCaesar(unittest.TestCase):
         self.assertEqual(rotate_character('Y', 28), 'A')
         self.assertEqual(rotate_character('#', 22), '#')
         self.assertEqual(rotate_character('%', -4), '%')
+
+    def test_encrypt(self):
+        """ test encrypt """
+        self.assertEqual(encrypt("foobar", 3), "irredu")
+        self.assertEqual(encrypt("aZmYbA", 0), "aZmYbA")
+        self.assertNotEqual(encrypt("a", 5), "b")
+        self.assertEqual(encrypt("fY", -15), "qJ")
 
 def main():
     """ nothing to see here """
