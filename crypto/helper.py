@@ -49,17 +49,6 @@ def rotate_character(char, rot):
         return char
     return position_to_char((alphabet_position(char) + int(rot)) % 26, is_upper(char))
 
-def encrypt(word, rot):
-    """ takes a string and shifts each char by rot
-    PARAM1: word (str): A string
-    PARAM2: rot (int): How far to rotate
-    RETURN: (str): The string rotated
-    """
-    rot_word = ""
-    for char in word:
-        rot_word += str(rotate_character(char, rot))
-    return rot_word
-
 class TestHelperMethods(unittest.TestCase):
     """ tests for helper methods """
     def test_alphabet_position(self):
@@ -99,13 +88,6 @@ class TestHelperMethods(unittest.TestCase):
         self.assertEqual(rotate_character('Y', 28), 'A')
         self.assertEqual(rotate_character('#', 22), '#')
         self.assertEqual(rotate_character('%', -4), '%')
-
-    def test_encrypt(self):
-        """ test encrypt """
-        self.assertEqual(encrypt("foo#bar", 3), "irr#edu")
-        self.assertEqual(encrypt("aZ@#$mYbA", 0), "aZ@#$mYbA")
-        self.assertNotEqual(encrypt("a", 5), "b!")
-        self.assertEqual(encrypt("fY", -15), "qJ")
 
 def main():
     """ nothing to see here
