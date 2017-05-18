@@ -47,7 +47,7 @@ def rotate_character(char, rot):
     """
     if not is_alpha(char):
         return char
-    return position_to_char((alphabet_position(char) + rot) % 26, is_upper(char))
+    return position_to_char((alphabet_position(char) + int(rot)) % 26, is_upper(char))
 
 def encrypt(word, rot):
     """ takes a string and shifts each char by rot
@@ -57,8 +57,19 @@ def encrypt(word, rot):
     """
     rot_word = ""
     for char in word:
-        rot_word += rotate_character(char, rot)
+        rot_word += str(rotate_character(char, rot))
     return rot_word
+
+def main():
+    """ Get user input and display encrypted message """
+    uncrypted = input("Type a message: ")
+    rot = input("rotation factor: ")
+    print(str(encrypt(uncrypted, rot)))
+    return None
+
+if __name__ == '__main__':
+    unittest.main()
+    # main()
 
 class TestCaesar(unittest.TestCase):
     """ tests for caesar methods """
@@ -102,14 +113,7 @@ class TestCaesar(unittest.TestCase):
 
     def test_encrypt(self):
         """ test encrypt """
-        self.assertEqual(encrypt("foobar", 3), "irredu")
-        self.assertEqual(encrypt("aZmYbA", 0), "aZmYbA")
-        self.assertNotEqual(encrypt("a", 5), "b")
+        self.assertEqual(encrypt("foo#bar", 3), "irr#edu")
+        self.assertEqual(encrypt("aZ@#$mYbA", 0), "aZ@#$mYbA")
+        self.assertNotEqual(encrypt("a", 5), "b!")
         self.assertEqual(encrypt("fY", -15), "qJ")
-
-def main():
-    """ nothing to see here """
-    return None
-
-if __name__ == '__main__':
-    unittest.main()
