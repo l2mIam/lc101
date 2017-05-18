@@ -11,9 +11,7 @@ def alphabet_position(letter):
     PARAM1: letter (string): A single char (a-Z)
     RETURN: number (int): {0-25}
     """
-
-    # get the Ascii value and mod by 26
-    return number
+    return (ord(letter) - 1) % 32
 
 def rotate_character(char, rot):
     """ takes a character and rotation and returns a characters that is the
@@ -30,10 +28,15 @@ def rotate_character(char, rot):
     return rot_char
 
 def main():
-    # write some tests here to test methods
-    # test edge cases: a, A, z, Z
-    # and one or two more: c,t
-    # e.g. alphabet_position(a) should return 0
+    # Tests for alphabet_position
+    assert alphabet_position('a') == 0
+    assert alphabet_position('A') == 0
+    assert alphabet_position('z') == 25
+    assert alphabet_position('Z') == 25
+    assert alphabet_position('d') == 3
+    assert alphabet_position('G') == 6
+
+    # Tests for rotate character
     
     return None
 
