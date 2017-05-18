@@ -23,18 +23,15 @@ def position_to_char(number):
 def rotate_character(char, rot):
     """ takes a character and rotation and returns a characters that is the
     result of rotating char by rot
-    PARAM1: char (str): A single char (a-Z)
+    PARAM1: char (str): A single char [a,z] or [A,Z]
     PARMA2: rot (int): How far to rotate
-    RETURN: rot_char (str): The result of rotating from char
+    RETURN: rot_char (str): A single character [a,z] the result of rotating from char
     """
-
-    # Use alphabet_position, add rot, mod by 26
-    # get char from num
-    # maybe create a new helper method, position_to_char(number)?
-
-    return rot_char
+    return position_to_char((alphabet_position(char) + rot) % 26)
 
 def main():
+    """ Just some tests
+    """
     # Tests for alphabet_position
     assert alphabet_position('a') == 0
     assert alphabet_position('A') == 0
@@ -49,8 +46,8 @@ def main():
     assert position_to_char(4) == 'e'
 
     # Tests for rotate_character
-    # assert rotate_character('A', 5) == 'f'
-    # assert rotate_character('z', 3) == 'c'
+    assert rotate_character('A', 5) == 'f'
+    assert rotate_character('z', 3) == 'c'
 
     return None
 
