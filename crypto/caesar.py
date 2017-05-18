@@ -9,7 +9,7 @@ __date__ = "5/8/2017"
 def alphabet_position(letter):
     """ takes a letter and returns the numeric value (a/A = 0 to z/Z = 25)
     PARAM1: letter (string): A single char [a,z] or [A,Z]
-    RETURN: number (int): [0,25]
+    RETURN: (int): [0,25]
     """
     return (ord(letter) - 1) % 32
 
@@ -17,7 +17,7 @@ def position_to_char(number, upper):
     """ takes a position [0,25] and returns character [a,z] or [A,Z]
     PARAM1: number (int): a single integer [0,25]
     PARAM2: upper (bool): True if upper case
-    RETURN: char (string): a single character [a,z], if upper: [A,Z]
+    RETURN: (string): a single character [a,z], if upper: [A,Z]
     """
     mod = 65 if upper else 97
     return chr(number + mod)
@@ -29,13 +29,23 @@ def is_upper(char):
     """
     return ord(char) < 97
 
+def is_alpha(char):
+    """ takes a single character and returns true if char is [a,z] or [A,Z]
+    PARAM1: char (string): a single character
+    RETURN: (bool):  True of char [a,z] or [A,Z]
+    """
+    val = ord(char)
+    return (val > 64 and val < 91) or (val > 96 and val < 123)
+
 def rotate_character(char, rot):
     """ takes a character and rotation and returns a characters that is the
-    result of rotating char by rot
+    result of rotating char by rot.  Return char unmodified if char is not [a,z] or [A,Z]
     PARAM1: char (str): A single char [a,z] or [A,Z]
     PARMA2: rot (int): How far to rotate
-    RETURN: rot_char (str): A single character [a,z] or [A,Z] the result of rotating from char
+    RETURN: (str): A single character [a,z] or [A,Z] the result of rotating from char
     """
+    if not is_alpha(char):
+        return char
     return position_to_char((alphabet_position(char) + rot) % 26, is_upper(char))
 
 def main():
@@ -60,10 +70,19 @@ def main():
     assert not is_upper('a')
     assert not is_upper('z')
 
+    # Tests for is_alpha
+    assert is_alpha('a')
+    assert is_alpha('z')
+    assert is_alpha('A')
+    assert not is_alpha('!')
+    assert not is_alpha('~')
+
     # Tests for rotate_character
-    assert rotate_character('A', 5) == 'F'
+    assert rotate_character('A', -5) == 'V'
     assert rotate_character('z', 3) == 'c'
     assert rotate_character('Y', 28) == 'A'
+    assert rotate_character('#', 22) == '#'
+    assert rotate_character('%', -4) == '%'
 
     return None
 
