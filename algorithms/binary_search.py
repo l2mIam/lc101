@@ -22,7 +22,7 @@ class BS:
         low = 0
         high = len(arr)-1
         while low <= high:
-            mid = low + high
+            mid = int((low + high)/2)
             guess = arr[mid]
             if guess == item:
                 return mid
