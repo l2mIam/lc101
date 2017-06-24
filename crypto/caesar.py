@@ -32,7 +32,7 @@ def main():
     """ Get user input and display encrypted message """
     uncrypted = input("Type a message: ")
     rot = input("rotation factor: ")
-    print(str(encrypt(uncrypted, rot)))
+    print str(encrypt(uncrypted, rot))
     return None
 
 if __name__ == '__main__':
