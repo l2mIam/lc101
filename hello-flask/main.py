@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, redirect
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -69,7 +69,8 @@ def validate_time():
         min_buff = ''
         if minutes < 10:
             min_buff = 0
-        return "The time at the tone will be: " + str(hours) + ":" + str(min_buff) + str(minutes)
+        time = str(hours) + ":" + str(min_buff) + str(minutes)
+        return redirect('/valid-time?time={0}'.format(time))
     else:
         return time_form.format(hours_error=hours_error, minutes_error=minutes_error, hours=hours, minutes=minutes)
 
@@ -88,4 +89,9 @@ def index():
 def hello():
     first_name = request.form['first_name']
     return '<h1>Hello, ' + first_name + '</h1>'
+
+@app.route("/valid-time")
+def valid_time():
+    time = request.args.get('time')
+    return '<h1>Time at the tome: {0}</h1>'.format(time)
 app.run()
