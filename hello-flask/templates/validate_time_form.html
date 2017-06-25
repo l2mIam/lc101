@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+    <body>
+        <style>
+            .error { color: red; }
+        </style>
+        <h1>Validate Time</h1>
+        <form action="/validate-time" method='POST'>
+            <label>Hours (24-hour format)
+                <input name="hours" type="text" value='{{ hours }}' />
+            </label>
+            <p class="error">{{ hours_error }}</p>
+            <label>Minutes
+                <input name="minutes" type="text" value='{{ minutes }}' />
+            </label>
+            <p class="error">{{ minutes_error }}</p>
+            <input type="submit" value="Convert" />
+        </form>
+    </body>
+</html>
